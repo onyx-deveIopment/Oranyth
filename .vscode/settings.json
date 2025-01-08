@@ -56,5 +56,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "Temporary Shtty As s name.sln"
+    "dotnet.defaultSolution": "ONYX-Harmony.sln"
 }

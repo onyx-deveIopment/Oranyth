@@ -84,8 +84,8 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            GameController.Instance.AddPoints(OnRemovePointAmount);
-            GameController.Instance.AddTime(OnRemoveTimeAmount);
+            GameController.Instance.AddPoints(- OnRemovePointAmount);
+            GameController.Instance.AddTime(- OnRemoveTimeAmount);
             Instantiate(CollectWrongSFXPrefab, transform.position, Quaternion.identity);
         }
     }

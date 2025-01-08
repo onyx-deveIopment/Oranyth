@@ -14,8 +14,8 @@ public class SpawnController : MonoBehaviour
     [SerializeField] private float SpawnRate;
 
     [Header("Debug")]
-    [SerializeField] private bool CanSpawn;
     [SerializeField] private float SpawnTimer;
+    [SerializeField] private bool SpawnerEnabled = true;
 
     private Camera mainCamera;
 
@@ -24,11 +24,12 @@ public class SpawnController : MonoBehaviour
     private void Start()
     {
         SpawnArea.size = GetCameraSize();
+        SpawnBurst(StartCount);
     }
 
     private void Update()
     {
-        if (!CanSpawn) return;
+        if(!SpawnerEnabled) return;
 
         SpawnTimer += Time.deltaTime;
         if (SpawnTimer >= SpawnRate)
@@ -63,11 +64,11 @@ public class SpawnController : MonoBehaviour
 
         GameObject collectible = Instantiate(CollectiblePrefab, spawnPosition, Quaternion.identity, transform);
         collectible.GetComponent<CollectibleController>().SetColor(
-            GameController.Instance.GetAllColors()[Random.Range(0, GameController.Instance.GetAllColors().Length)]
+            ColorController.Instance.GetAllColors()[Random.Range(0, ColorController.Instance.GetAllColors().Length)]
         );
     }
 
-    public void SetCanSpawn(bool _canSpawn) => CanSpawn = _canSpawn;
+    public void DisableSpawner() => SpawnerEnabled = false;
 
     public void Reset()
     {

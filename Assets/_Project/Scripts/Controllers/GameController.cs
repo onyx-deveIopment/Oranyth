@@ -30,6 +30,8 @@ public class GameController : MonoBehaviour
     private void Start()
     {
         Countdown = StartTime;
+
+        Cursor.visible = false;
     }
 
     private void Update()
@@ -40,6 +42,8 @@ public class GameController : MonoBehaviour
 
         if (Countdown <= 0) GameOver();
         if (Points < 0) GameOver();
+
+        UpdateUI();
     }
 
     private void GameOver()
@@ -48,8 +52,23 @@ public class GameController : MonoBehaviour
 
         State = GameState.GameOver;
 
+        PlayerController.Instance.DisablePlayer();
+        SpawnController.Instance.DisableSpawner();
+
         Countdown = 0;
         if (Points < 0) Points = 0;
+
+        UpdateUI();
+
+        UIPanelController.Instance.ShowPanel(1);
+
+        Cursor.visible = true;
+    }
+
+    private void UpdateUI(){
+        foreach (TMP_Text text in PointsText) text.text = Points.ToString();
+
+        CountdownText.text = (Mathf.Round(Countdown * 100) / 100).ToString("F2");
     }
 
     public void AddPoints(int _amount) => Points += _amount;

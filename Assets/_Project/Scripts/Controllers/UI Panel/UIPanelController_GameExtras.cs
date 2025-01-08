@@ -9,7 +9,7 @@ public class UIPanelController_GameExtras : MonoBehaviour
     public void RESTART_ButtonPressed() => SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     public void MENU_ButtonPressed()
     {
-        Resume();
+        Time.timeScale = 1;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
     }
 
@@ -24,12 +24,16 @@ public class UIPanelController_GameExtras : MonoBehaviour
         Time.timeScale = 0;
         paused = true;
 
+        Cursor.visible = true;
+
         UIPanelController.Instance.ShowPanel(2);
     }
 
     private void Resume(){
         Time.timeScale = 1;
         paused = false;
+
+        Cursor.visible = false;
 
         UIPanelController.Instance.ShowPanel(0);
     }

@@ -10,7 +10,7 @@ public class CollectibleController : MonoBehaviour
 
     private void Start() => GetComponentInChildren<SpriteRenderer>().color = Color;
 
-    private void Update() => Border.SetActive(Color == GameController.Instance.GetColors()[GameController.Instance.GetCurrentColorIndex()]);
+    private void Update() => Border.SetActive(Color == ColorController.Instance.GetColor());
 
     public void Collected() => Destroy(gameObject);
 

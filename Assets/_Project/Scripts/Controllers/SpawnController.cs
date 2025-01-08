@@ -14,8 +14,8 @@ public class SpawnController : MonoBehaviour
     [SerializeField] private float SpawnRate;
 
     [Header("Debug")]
-    [SerializeField] private bool CanSpawn;
     [SerializeField] private float SpawnTimer;
+    [SerializeField] private bool SpawnerEnabled = true;
 
     private Camera mainCamera;
 
@@ -23,12 +23,13 @@ public class SpawnController : MonoBehaviour
 
     private void Start()
     {
-        SpawnArea.size = GameController.Instance.GetCameraSize();
+        SpawnArea.size = GetCameraSize();
+        SpawnBurst(StartCount);
     }
 
     private void Update()
     {
-        if (!CanSpawn) return;
+        if(!SpawnerEnabled) return;
 
         SpawnTimer += Time.deltaTime;
         if (SpawnTimer >= SpawnRate)
@@ -63,11 +64,11 @@ public class SpawnController : MonoBehaviour
 
         GameObject collectible = Instantiate(CollectiblePrefab, spawnPosition, Quaternion.identity, transform);
         collectible.GetComponent<CollectibleController>().SetColor(
-            GameController.Instance.GetColors()[Random.Range(0, GameController.Instance.GetColors().Length)]
+            ColorController.Instance.GetAllColors()[Random.Range(0, ColorController.Instance.GetAllColors().Length)]
         );
     }
 
-    public void SetCanSpawn(bool _canSpawn) => CanSpawn = _canSpawn;
+    public void DisableSpawner() => SpawnerEnabled = false;
 
     public void Reset()
     {
@@ -76,5 +77,25 @@ public class SpawnController : MonoBehaviour
             Destroy(child.gameObject);
         }
         SpawnBurst(StartCount);
+    }
+
+    public Vector2 GetCameraSize()
+    {
+        mainCamera = Camera.main;
+
+        if (mainCamera != null)
+        {
+            Vector3 screenBottomLeft = mainCamera.ScreenToWorldPoint(new Vector3(0, 0, 0));
+            Vector3 screenTopRight = mainCamera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 0));
+
+            Vector2 areaSize = new Vector2(
+                screenTopRight.x - screenBottomLeft.x,
+                screenTopRight.y - screenBottomLeft.y
+            );
+
+            return areaSize;
+        }
+
+        return Vector2.zero;
     }
 }

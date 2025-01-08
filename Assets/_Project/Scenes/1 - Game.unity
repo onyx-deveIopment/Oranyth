@@ -3211,7 +3211,7 @@ MonoBehaviour:
   OnCollectPointAmount: 1
   OnRemovePointAmount: 2
   OnCollectTimeAmount: 1
-  OnRemoveTimeAmount: -5
+  OnRemoveTimeAmount: 5
   OnCollectShakeDuration: 0.25
   OnCollectShakeFrequency: 0.05
   OnCollectShakeIntensity: 0.1

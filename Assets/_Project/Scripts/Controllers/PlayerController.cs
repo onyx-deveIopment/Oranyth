@@ -13,8 +13,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float MaxSpeed = 10;
     [SerializeField] private float Damping = 0.9f;
     [Space]
-    [SerializeField] private float OnCollectPointAmount = 1;
-    [SerializeField] private float OnRemovePointAmount = 2;
+    [SerializeField] private int OnCollectPointAmount = 1;
+    [SerializeField] private int OnRemovePointAmount = 2;
     [Space]
     [SerializeField] private float OnCollectTimeAmount = 5;
     [SerializeField] private float OnRemoveTimeAmount = -10;
@@ -29,7 +29,7 @@ public class PlayerController : MonoBehaviour
     [Header("Debug")]
     [SerializeField] private Vector2 Velocity;
     [SerializeField] private Camera MainCamera;
-    [SerializeField] private bool PlayerCanMove;
+    [SerializeField] private bool PlayerEnabled = true;
 
     private void Awake() => Instance = this;
 
@@ -37,15 +37,14 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // Movement
-        if (PlayerCanMove)
-        {
-            Velocity += MoveInputs * Acceleration * Time.deltaTime;
-            Velocity *= Damping;
-            Velocity = Vector2.ClampMagnitude(Velocity, MaxSpeed);
+        if (!PlayerEnabled) return;
 
-            transform.position += (Vector3)Velocity * Time.deltaTime;
-        }
+        // Movement
+        Velocity += MoveInputs * Acceleration * Time.deltaTime;
+        Velocity *= Damping;
+        Velocity = Vector2.ClampMagnitude(Velocity, MaxSpeed);
+
+        transform.position += (Vector3)Velocity * Time.deltaTime;
 
         // Clamp the player's position within camera bounds
         Vector3 clampedPosition = transform.position;
@@ -63,7 +62,7 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         // Graphics
-        SpriteRenderer.color = GameController.Instance.GetColors()[GameController.Instance.GetCurrentColorIndex()];
+        SpriteRenderer.color = ColorController.Instance.GetColor();
     }
 
     private void OnTriggerEnter2D(Collider2D _col)
@@ -77,7 +76,7 @@ public class PlayerController : MonoBehaviour
 
         Color color = collectibleController.GetColor();
 
-        if (color == GameController.Instance.GetColors()[GameController.Instance.GetCurrentColorIndex()])
+        if (color == ColorController.Instance.GetColor())
         {
             GameController.Instance.AddPoints(OnCollectPointAmount);
             GameController.Instance.AddTime(OnCollectTimeAmount);
@@ -91,13 +90,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void SetPlayerCanMove(bool _canMove) => PlayerCanMove = _canMove;
-
-    public void Reset()
-    {
-        Velocity = Vector2.zero;
-        transform.position = Vector3.zero;
-    }
+    public void DisablePlayer() => PlayerEnabled = false;
 
     #region Inputs
 
@@ -105,7 +98,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Vector2 MoveInputs;
 
     public void OnMoveInput(InputAction.CallbackContext ctx) => MoveInputs = ctx.ReadValue<Vector2>();
-    public void OnRestartInput(InputAction.CallbackContext ctx) { if (ctx.performed) GameController.Instance.RequestRestart(); }
 
     #endregion
 }

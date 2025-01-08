@@ -23,7 +23,7 @@ public class SpawnController : MonoBehaviour
 
     private void Start()
     {
-        SpawnArea.size = GameController.Instance.GetCameraSize();
+        SpawnArea.size = GetCameraSize();
     }
 
     private void Update()
@@ -63,7 +63,7 @@ public class SpawnController : MonoBehaviour
 
         GameObject collectible = Instantiate(CollectiblePrefab, spawnPosition, Quaternion.identity, transform);
         collectible.GetComponent<CollectibleController>().SetColor(
-            GameController.Instance.GetColors()[Random.Range(0, GameController.Instance.GetColors().Length)]
+            GameController.Instance.GetAllColors()[Random.Range(0, GameController.Instance.GetAllColors().Length)]
         );
     }
 
@@ -76,5 +76,25 @@ public class SpawnController : MonoBehaviour
             Destroy(child.gameObject);
         }
         SpawnBurst(StartCount);
+    }
+
+    public Vector2 GetCameraSize()
+    {
+        mainCamera = Camera.main;
+
+        if (mainCamera != null)
+        {
+            Vector3 screenBottomLeft = mainCamera.ScreenToWorldPoint(new Vector3(0, 0, 0));
+            Vector3 screenTopRight = mainCamera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 0));
+
+            Vector2 areaSize = new Vector2(
+                screenTopRight.x - screenBottomLeft.x,
+                screenTopRight.y - screenBottomLeft.y
+            );
+
+            return areaSize;
+        }
+
+        return Vector2.zero;
     }
 }

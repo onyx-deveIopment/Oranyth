@@ -1,4 +1,3 @@
-using System.Drawing;
 using TMPro;
 using UnityEngine;
 
@@ -7,14 +6,18 @@ public class GameController : MonoBehaviour
     [HideInInspector] public static GameController Instance;
 
     [Header("References")]
-    [SerializeField] private TMP_Text[] PointsText;
+    [SerializeField] private TMP_Text TotalTimeText;
+    [SerializeField] private TMP_Text CorrectCountText;
+    [SerializeField] private TMP_Text WrongCountText;
     [SerializeField] private TMP_Text CountdownText;
 
     [Header("Settings")]
     [SerializeField] private int StartTime = 60;
 
     [Header("Debug")]
-    [SerializeField] private int Points = 0;
+    [SerializeField] private float TotalTime = 0;
+    [SerializeField] private int CorrectCount = 0;
+    [SerializeField] private int WrongCount = 0;
     [SerializeField] private float Countdown;
     [SerializeField] private GameState State = GameState.Playing;
 
@@ -38,10 +41,10 @@ public class GameController : MonoBehaviour
     {
         if (State != GameState.Playing) return;
 
+        TotalTime += Time.deltaTime;
         Countdown -= Time.deltaTime;
 
         if (Countdown <= 0) GameOver();
-        if (Points < 0) GameOver();
 
         UpdateUI();
     }
@@ -56,7 +59,6 @@ public class GameController : MonoBehaviour
         SpawnController.Instance.DisableSpawner();
 
         Countdown = 0;
-        if (Points < 0) Points = 0;
 
         UpdateUI();
 
@@ -65,12 +67,16 @@ public class GameController : MonoBehaviour
         Cursor.visible = true;
     }
 
-    private void UpdateUI(){
-        foreach (TMP_Text text in PointsText) text.text = Points.ToString();
+    private void UpdateUI()
+    {
+        TotalTimeText.text = (Mathf.Round(TotalTime * 100) / 100).ToString("F2");
+        
+        CorrectCountText.text = CorrectCount.ToString();
+        WrongCountText.text = WrongCount.ToString();
 
         CountdownText.text = (Mathf.Round(Countdown * 100) / 100).ToString("F2");
     }
 
-    public void AddPoints(int _amount) => Points += _amount;
+    public void Collect(bool _correct) { if (_correct) CorrectCount++; else WrongCount++; }
     public void AddTime(float _amount) => Countdown += _amount;
 }

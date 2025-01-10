@@ -78,13 +78,13 @@ public class PlayerController : MonoBehaviour
 
         if (color == ColorController.Instance.GetColor())
         {
-            GameController.Instance.AddPoints(OnCollectPointAmount);
+            GameController.Instance.Collect(true);
             GameController.Instance.AddTime(OnCollectTimeAmount);
             Instantiate(CollectRightSFXPrefab, transform.position, Quaternion.identity);
         }
         else
         {
-            GameController.Instance.AddPoints(- OnRemovePointAmount);
+            GameController.Instance.Collect(false);
             GameController.Instance.AddTime(- OnRemoveTimeAmount);
             Instantiate(CollectWrongSFXPrefab, transform.position, Quaternion.identity);
         }

@@ -10,6 +10,7 @@ public class ColorController : MonoBehaviour
 
     [Header("Debug")]
     [SerializeField] private int CurrentColorIndex = 0;
+    [SerializeField] private int NextColorIndex = 0;
     [SerializeField] private float ColorTimer;
 
     private void Awake() => Instance = this;
@@ -23,11 +24,17 @@ public class ColorController : MonoBehaviour
             int oldColorIndex = CurrentColorIndex;
             while (CurrentColorIndex == oldColorIndex)
             {
-                CurrentColorIndex = Random.Range(0, Colors.Length);
+                CurrentColorIndex = NextColorIndex;
+                NextColorIndex = Random.Range(0, Colors.Length);
             }
         }
     }
 
     public Color GetColor() => Colors[CurrentColorIndex];
+    public Color GetNextColor() => Colors[NextColorIndex];
+
+    public float TimeToNextColor() => ColorTimer;
+    public float GetColorChangeRate() => ColorChangeRate;
+
     public Color[] GetAllColors() => Colors;
 }

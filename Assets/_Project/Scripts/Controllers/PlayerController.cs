@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     [Header("References")]
     [SerializeField] private SpriteRenderer SpriteRenderer;
     [SerializeField] private GameObject PopupPrefab;
+    [SerializeField] private GameObject NextColorPreview;
 
     [Header("Settings")]
     [SerializeField] private float Acceleration = 50;
@@ -28,10 +29,15 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Vector2 Velocity;
     [SerializeField] private Camera MainCamera;
     [SerializeField] private bool PlayerEnabled = true;
+    [SerializeField] private SpriteRenderer NextColorPreviewSpriteRenderer;
 
     private void Awake() => Instance = this;
 
-    private void Start() => MainCamera = Camera.main;
+    private void Start()
+    {
+        MainCamera = Camera.main;
+        NextColorPreviewSpriteRenderer = NextColorPreview.GetComponent<SpriteRenderer>();
+    }
 
     private void FixedUpdate()
     {
@@ -55,6 +61,11 @@ public class PlayerController : MonoBehaviour
         clampedPosition.y = Mathf.Clamp(clampedPosition.y, -screenBounds.y + spriteHeight, screenBounds.y - spriteHeight);
 
         transform.position = clampedPosition;
+
+        Color nextColor = ColorController.Instance.GetNextColor();
+        float percent = ColorController.Instance.TimeToNextColor() / ColorController.Instance.GetColorChangeRate();
+        NextColorPreviewSpriteRenderer.color = new Color(nextColor.r, nextColor.g, nextColor.b, 1 - percent);
+        NextColorPreview.transform.localScale = new Vector3(1.25f + percent / 2, 1.25f + percent / 2, 1.25f + percent / 2);
     }
 
     private void Update()

@@ -18,7 +18,9 @@ public class GameController : MonoBehaviour
     [SerializeField] private float TotalTime = 0;
     [SerializeField] private int CorrectCount = 0;
     [SerializeField] private int WrongCount = 0;
+
     [SerializeField] private float Countdown;
+
     [SerializeField] private GameState State = GameState.Playing;
 
 
@@ -51,8 +53,6 @@ public class GameController : MonoBehaviour
 
     private void GameOver()
     {
-        Debug.Log("Game Over");
-
         State = GameState.GameOver;
 
         PlayerController.Instance.DisablePlayer();

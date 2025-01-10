@@ -1438,9 +1438,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: "WASD or Arrow Keys: Move\nEscape: Pause.\n\r\nCollect your color.\r\nAvoid
-    other colors.\r\n\r\nYour Color: +1 Point, +1 Second\r\nWrong Color: -2 Points,
-    -5 Seconds\r\n\r\nRules:\r\n- Don't go below 0 points.\r\n- Don't let the timer
-    hit 0!\r"
+    other colors.\r\n\r\nYour Color: +1 Second\r\nWrong Color: -5 Seconds\r\n\r\nRules:\r\r\n-
+    Don't let the timer hit 0!\n\n(Cotroller and Touch support coming later.)\r"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 79459efec17a4d00a321bdcc27bbc385, type: 2}

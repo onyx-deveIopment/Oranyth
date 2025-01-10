@@ -710,6 +710,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1044905402}
   - {fileID: 1763933198}
   - {fileID: 1640744407}
   - {fileID: 1111340542}
@@ -1994,6 +1995,41 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1027921711}
   m_CullTransparentMesh: 1
+--- !u!1 &1044905401
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1044905402}
+  m_Layer: 5
+  m_Name: Popups
+  m_TagString: popup_container
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1044905402
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1044905401}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 453105773}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1047876889
 GameObject:
   m_ObjectHideFlags: 0
@@ -3790,11 +3826,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SpriteRenderer: {fileID: 189925166}
+  PopupPrefab: {fileID: 8067086436902815166, guid: 360728a100b3de64e93085c74ac70984, type: 3}
   Acceleration: 100
   MaxSpeed: 10
   Damping: 0.9
-  OnCollectPointAmount: 1
-  OnRemovePointAmount: 2
   OnCollectTimeAmount: 1
   OnRemoveTimeAmount: 5
   OnCollectShakeDuration: 0.25

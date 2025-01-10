@@ -7,14 +7,12 @@ public class PlayerController : MonoBehaviour
 
     [Header("References")]
     [SerializeField] private SpriteRenderer SpriteRenderer;
+    [SerializeField] private GameObject PopupPrefab;
 
     [Header("Settings")]
     [SerializeField] private float Acceleration = 50;
     [SerializeField] private float MaxSpeed = 10;
     [SerializeField] private float Damping = 0.9f;
-    [Space]
-    [SerializeField] private int OnCollectPointAmount = 1;
-    [SerializeField] private int OnRemovePointAmount = 2;
     [Space]
     [SerializeField] private float OnCollectTimeAmount = 5;
     [SerializeField] private float OnRemoveTimeAmount = -10;
@@ -70,7 +68,6 @@ public class PlayerController : MonoBehaviour
         if (!_col.gameObject.CompareTag("collectible")) return;
 
         CollectibleController collectibleController = _col.gameObject.GetComponent<CollectibleController>();
-        collectibleController.Collected();
 
         CameraShake.Instance.Shake(OnCollectShakeDuration, OnCollectShakeFrequency, OnCollectShakeIntensity);
 
@@ -79,15 +76,27 @@ public class PlayerController : MonoBehaviour
         if (color == ColorController.Instance.GetColor())
         {
             GameController.Instance.Collect(true);
+
             GameController.Instance.AddTime(OnCollectTimeAmount);
+
             Instantiate(CollectRightSFXPrefab, transform.position, Quaternion.identity);
         }
         else
         {
             GameController.Instance.Collect(false);
-            GameController.Instance.AddTime(- OnRemoveTimeAmount);
+
+            GameController.Instance.AddTime(-OnRemoveTimeAmount);
+
             Instantiate(CollectWrongSFXPrefab, transform.position, Quaternion.identity);
         }
+
+        GameObject popup = Instantiate(PopupPrefab, Vector3.zero, Quaternion.identity);
+        PopupController popupController = popup.GetComponent<PopupController>();
+
+        popupController.SetMessage(color == ColorController.Instance.GetColor() ? $"+{OnCollectTimeAmount}s" : $"-{OnRemoveTimeAmount}s");
+        popupController.GoToObject(_col.gameObject.transform.position);
+
+        collectibleController.Collected();
     }
 
     public void DisablePlayer() => PlayerEnabled = false;

@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 3
   tags:
   - collectible
+  - popup_container
   layers:
   - Default
   - TransparentFX

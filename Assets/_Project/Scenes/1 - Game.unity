@@ -4034,6 +4034,7 @@ MonoBehaviour:
   CorrectCountText: {fileID: 594761112}
   WrongCountText: {fileID: 1047876891}
   CountdownText: {fileID: 790837524}
+  GameOverSFX: {fileID: 5664520975437515434, guid: c7998e899c3634b4d8378f63c0049b60, type: 3}
   StartTime: 60
   TotalTime: 0
   CorrectCount: 0

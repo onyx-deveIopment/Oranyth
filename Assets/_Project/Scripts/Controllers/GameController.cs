@@ -10,6 +10,7 @@ public class GameController : MonoBehaviour
     [SerializeField] private TMP_Text CorrectCountText;
     [SerializeField] private TMP_Text WrongCountText;
     [SerializeField] private TMP_Text CountdownText;
+    [SerializeField] private GameObject GameOverSFX;
 
     [Header("Settings")]
     [SerializeField] private int StartTime = 60;
@@ -61,6 +62,8 @@ public class GameController : MonoBehaviour
         Countdown = 0;
 
         UpdateUI();
+
+        Instantiate(GameOverSFX);
 
         UIPanelController.Instance.ShowPanel(1);
 

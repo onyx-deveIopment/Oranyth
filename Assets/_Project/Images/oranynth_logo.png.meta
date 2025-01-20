@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 02ac594ad0d665a44ae46a0cd500172a
+guid: b9c254aa960b8324f909740c9618838c
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -9132794600361841240
-    second: oranynth_logo_0
+      213: -7571234341891357293
+    second: oranynth_logo_v2_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -126,7 +126,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: oranynth_logo_0
+      name: oranynth_logo_v2_0
       rect:
         serializedVersion: 2
         x: 0
@@ -141,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 8ada3d6d2bbc14180800000000000000
-      internalID: -9132794600361841240
+      spriteID: 395c35cea729de690800000000000000
+      internalID: -7571234341891357293
       vertices: []
       indices: 
       edges: []
@@ -160,7 +160,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      oranynth_logo_v2_0: -7571234341891357293
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

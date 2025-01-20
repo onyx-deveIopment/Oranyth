@@ -1,8 +1,8 @@
-# ONYX-BRICK
+# ONYX-Oranth
 
 A color game.
 
-Playtest the game: [https://onyx.andrewcromar.org/unnamedgame/demo/play](https://onyx.andrewcromar.org/unnamedgame/demo/play) <br>
+Playtest the game: [https://onyx.andrewcromar.org/oranth/demo/play](https://onyx.andrewcromar.org/oranth/demo/play) <br>
 Feedback form: [https://onyx.andrewcromar.org/playtestform](https://onyx.andrewcromar.org/playtestform) (redirects google forms)
 
 ### Images

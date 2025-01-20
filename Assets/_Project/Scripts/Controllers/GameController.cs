@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class GameController : MonoBehaviour
     [SerializeField] private TMP_Text WrongCountText;
     [SerializeField] private TMP_Text CountdownText;
     [SerializeField] private GameObject GameOverSFX;
+    [SerializeField] private Slider ColorSlider;
+    [SerializeField] private Image ColorNobImage;
 
     [Header("Settings")]
     [SerializeField] private int StartTime = 60;
@@ -76,6 +79,9 @@ public class GameController : MonoBehaviour
         
         CorrectCountText.text = CorrectCount.ToString();
         WrongCountText.text = WrongCount.ToString();
+
+        ColorSlider.value = ColorController.Instance.GetTimeRatio();
+        ColorNobImage.color = ColorController.Instance.GetNextColor();
 
         CountdownText.text = (Mathf.Round(Countdown * 100) / 100).ToString("F2");
     }

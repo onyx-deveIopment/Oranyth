@@ -14,7 +14,7 @@ public class PopupController : MonoBehaviour
 
     private void Awake()
     {
-        transform.parent = GameObject.FindGameObjectWithTag("popup_container").transform;
+        transform.SetParent(GameObject.FindGameObjectWithTag("popup_container").transform);
 
         rectTransform = GetComponent<RectTransform>();
         canvas = GetComponentInParent<Canvas>();

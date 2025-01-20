@@ -21,10 +21,9 @@ public class ColorController : MonoBehaviour
         if (ColorTimer <= 0)
         {
             ColorTimer = ColorChangeRate;
-            int oldColorIndex = CurrentColorIndex;
-            while (CurrentColorIndex == oldColorIndex)
+            CurrentColorIndex = NextColorIndex;
+            while (NextColorIndex == CurrentColorIndex)
             {
-                CurrentColorIndex = NextColorIndex;
                 NextColorIndex = Random.Range(0, Colors.Length);
             }
         }
@@ -35,6 +34,8 @@ public class ColorController : MonoBehaviour
 
     public float TimeToNextColor() => ColorTimer;
     public float GetColorChangeRate() => ColorChangeRate;
+
+    public float GetTimeRatio() => ColorTimer / ColorChangeRate;
 
     public Color[] GetAllColors() => Colors;
 }

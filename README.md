@@ -1,11 +1,9 @@
-# ONYX-Harmony
+# ONYX-BRICK
 
-A color game. (Name might change.)
+A color game.
 
 Playtest the game: [https://onyx.andrewcromar.org/unnamedgame/demo/play](https://onyx.andrewcromar.org/unnamedgame/demo/play) <br>
 Feedback form: [https://onyx.andrewcromar.org/playtestform](https://onyx.andrewcromar.org/playtestform) (redirects google forms)
-
-> If you have name ideas lemmi know I need a better name. 
 
 ### Images
 

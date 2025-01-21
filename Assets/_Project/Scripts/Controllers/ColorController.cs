@@ -32,8 +32,7 @@ public class ColorController : MonoBehaviour
     public Color GetColor() => Colors[CurrentColorIndex];
     public Color GetNextColor() => Colors[NextColorIndex];
 
-    public float TimeToNextColor() => ColorTimer;
-    public float GetColorChangeRate() => ColorChangeRate;
+    public Color GetRandomColor() => Colors[Random.Range(0, Colors.Length)];
 
     public float GetTimeRatio() => ColorTimer / ColorChangeRate;
 

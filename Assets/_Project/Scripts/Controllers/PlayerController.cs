@@ -66,41 +66,7 @@ public class PlayerController : MonoBehaviour
         SpriteRenderer.color = ColorController.Instance.GetColor();
     }
 
-    private void OnTriggerEnter2D(Collider2D _col)
-    {
-        if (!_col.gameObject.CompareTag("collectible")) return;
-
-        CollectibleController collectibleController = _col.gameObject.GetComponent<CollectibleController>();
-
-        CameraShake.Instance.Shake(OnCollectShakeDuration, OnCollectShakeFrequency, OnCollectShakeIntensity);
-
-        Color color = collectibleController.GetColor();
-
-        if (color == ColorController.Instance.GetColor())
-        {
-            GameController.Instance.Collect(true);
-
-            GameController.Instance.AddTime(OnCollectTimeAmount);
-
-            Instantiate(CollectRightSFXPrefab, transform.position, Quaternion.identity);
-        }
-        else
-        {
-            GameController.Instance.Collect(false);
-
-            GameController.Instance.AddTime(-OnRemoveTimeAmount);
-
-            Instantiate(CollectWrongSFXPrefab, transform.position, Quaternion.identity);
-        }
-
-        GameObject popup = Instantiate(PopupPrefab, Vector3.zero, Quaternion.identity);
-        PopupController popupController = popup.GetComponent<PopupController>();
-
-        popupController.SetMessage(color == ColorController.Instance.GetColor() ? $"+{OnCollectTimeAmount}s" : $"-{OnRemoveTimeAmount}s");
-        popupController.GoToObject(_col.gameObject.transform.position);
-
-        collectibleController.Collected();
-    }
+    private void OnTriggerEnter2D(Collider2D _col) { if (_col.gameObject.CompareTag("collectible")) _col.gameObject.GetComponent<Collectible>().OnCollected(); }
 
     public void DisablePlayer() => PlayerEnabled = false;
 

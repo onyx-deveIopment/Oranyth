@@ -672,7 +672,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SpawnArea: {fileID: 329422966}
   NoSpawnArea: {fileID: 329422968}
-  CollectiblePrefab: {fileID: 6234797369498147134, guid: 093725e8940837343a45bb9e0e5322c0, type: 3}
+  CollectiblePrefab: {fileID: 7483760908730672677, guid: 669a89e21ca7d7d4fbfef4378440a88f, type: 3}
   StartCount: 20
   SpawnRate: 1
   SpawnTimer: 1

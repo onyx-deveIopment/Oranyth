@@ -62,10 +62,7 @@ public class SpawnController : MonoBehaviour
             return;
         }
 
-        GameObject collectible = Instantiate(CollectiblePrefab, spawnPosition, Quaternion.identity, transform);
-        collectible.GetComponent<CollectibleController>().SetColor(
-            ColorController.Instance.GetAllColors()[Random.Range(0, ColorController.Instance.GetAllColors().Length)]
-        );
+        Instantiate(CollectiblePrefab, spawnPosition, Quaternion.identity, transform);
     }
 
     public void DisableSpawner() => SpawnerEnabled = false;

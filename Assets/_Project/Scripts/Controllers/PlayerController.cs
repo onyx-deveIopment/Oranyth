@@ -13,16 +13,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float Acceleration = 50;
     [SerializeField] private float MaxSpeed = 10;
     [SerializeField] private float Damping = 0.9f;
-    [Space]
-    [SerializeField] private float OnCollectTimeAmount = 5;
-    [SerializeField] private float OnRemoveTimeAmount = -10;
-    [Space]
-    [SerializeField] private float OnCollectShakeDuration = 0.5f;
-    [SerializeField] private float OnCollectShakeFrequency = 0.1f;
-    [SerializeField] private float OnCollectShakeIntensity = 0.5f;
-    [Space]
-    [SerializeField] private GameObject CollectRightSFXPrefab;
-    [SerializeField] private GameObject CollectWrongSFXPrefab;
 
     [Header("Debug")]
     [SerializeField] private Vector2 Velocity;

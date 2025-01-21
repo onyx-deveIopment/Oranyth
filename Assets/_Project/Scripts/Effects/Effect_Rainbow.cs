@@ -4,7 +4,7 @@ public class Effect_Rainbow : MonoBehaviour
 {
     [Header("Debug")]
     [SerializeField] private SpriteRenderer spriteRenderer;
-    [SerializeField] private bool Enabled;
+    [SerializeField] private bool Enabled = true;
 
     private void Start() => spriteRenderer = GetComponent<SpriteRenderer>();
 

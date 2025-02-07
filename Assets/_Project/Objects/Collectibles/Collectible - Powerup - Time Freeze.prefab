@@ -53,7 +53,8 @@ MonoBehaviour:
     Intensity: 0.25
   rb: {fileID: 0}
   col: {fileID: 0}
-  duration: 5
+  SFXPrefab_Powerup: {fileID: 7879973818579139399, guid: 69b72f4dd87aaad48801eab53c5cf35e, type: 3}
+  Duration: 5
 --- !u!1 &6460289467989295115
 GameObject:
   m_ObjectHideFlags: 0

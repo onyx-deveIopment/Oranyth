@@ -7,8 +7,6 @@ public class Collectible_Dot : Collectible
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private GameObject Border;
     [Space]
-    [SerializeField] private GameObject PopupPrefab;
-    [Space]
     [SerializeField] private GameObject SFXPrefab_Correct;
     [SerializeField] private GameObject SFXPrefab_Wrong;
 
@@ -45,7 +43,7 @@ public class Collectible_Dot : Collectible
     private void OnCorrect()
     {
         GameController.Instance.AddTime(CorrectTimeAmount);
-        ShowPopup("+" + CorrectTimeAmount.ToString());
+        base.ShowPopup("+" + CorrectTimeAmount.ToString(), transform.position);
 
         GameController.Instance.Collect(true);
 
@@ -55,19 +53,10 @@ public class Collectible_Dot : Collectible
     private void OnWrong()
     {
         GameController.Instance.AddTime(RemoveTimeAmount);
-        ShowPopup(RemoveTimeAmount.ToString());
+        base.ShowPopup(RemoveTimeAmount.ToString(), transform.position);
         
         GameController.Instance.Collect(false);
 
         Instantiate(SFXPrefab_Wrong, transform.position, Quaternion.identity);
-    }
-
-    private void ShowPopup(string _text)
-    {
-        GameObject popup = Instantiate(PopupPrefab, transform.position, Quaternion.identity);
-
-        PopupController popupController = popup.GetComponent<PopupController>();
-        popupController.SetMessage(_text);
-        popupController.GoToObject(transform.position);
     }
 }

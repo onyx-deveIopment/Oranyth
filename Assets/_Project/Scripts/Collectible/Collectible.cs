@@ -5,6 +5,8 @@ public class Collectible : MonoBehaviour
     [Header("COLLECTIBLE ----------")]
     [Header("Settings")]
     [SerializeField] private float DefaultColRadius = 0.75f;
+    [SerializeField] private GameObject PopupPrefab;
+
 
     [SerializeField]
     private CameraEffect_Shake_Settings shakeSettings = new CameraEffect_Shake_Settings()
@@ -41,5 +43,14 @@ public class Collectible : MonoBehaviour
     {
         Debug.Log("Collectable collected!");
         CameraEffect_Shake.Instance.Shake(shakeSettings);
+    }
+
+    public void ShowPopup(string _text, Vector3 _position)
+    {
+        GameObject popup = Instantiate(PopupPrefab, transform.position, Quaternion.identity);
+
+        PopupController popupController = popup.GetComponent<PopupController>();
+        popupController.SetMessage(_text);
+        popupController.GoToObject(_position);
     }
 }

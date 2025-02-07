@@ -381,7 +381,7 @@ Transform:
   m_GameObject: {fileID: 189925164}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -0.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -3964,7 +3964,7 @@ Transform:
   m_GameObject: {fileID: 1708320048}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.1}
+  m_LocalPosition: {x: 0, y: 0, z: -0.1}
   m_LocalScale: {x: 1.25, y: 1.25, z: 1.25}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -4147,13 +4147,6 @@ MonoBehaviour:
   Acceleration: 150
   MaxSpeed: 10
   Damping: 0.9
-  OnCollectTimeAmount: 1
-  OnRemoveTimeAmount: 5
-  OnCollectShakeDuration: 0.25
-  OnCollectShakeFrequency: 0.05
-  OnCollectShakeIntensity: 0.1
-  CollectRightSFXPrefab: {fileID: 5137702871835633159, guid: be5d5de075adba1468330abedd982cb3, type: 3}
-  CollectWrongSFXPrefab: {fileID: 7879973818579139399, guid: 07d4fc0a24e0306469284a5fd53040a3, type: 3}
   Velocity: {x: 0, y: 0}
   MainCamera: {fileID: 0}
   PlayerEnabled: 1

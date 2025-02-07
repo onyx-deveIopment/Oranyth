@@ -6,9 +6,18 @@ public class Collectible : MonoBehaviour
     [Header("Settings")]
     [SerializeField] private float DefaultColRadius = 0.75f;
 
+    [SerializeField]
+    private CameraEffect_Shake_Settings shakeSettings = new CameraEffect_Shake_Settings()
+    {
+        Duration = 0.2f,
+        Frequency = 0.05f,
+        Intensity = 0.25f
+    };
+    
     [Header("Debug")]
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private CircleCollider2D col;
+
 
     public virtual void Start()
     {
@@ -17,6 +26,8 @@ public class Collectible : MonoBehaviour
 
     public virtual void SetupObject()
     {
+        gameObject.tag = "collectible";
+
         rb = gameObject.AddComponent<Rigidbody2D>();
         col = gameObject.AddComponent<CircleCollider2D>();
 
@@ -29,5 +40,6 @@ public class Collectible : MonoBehaviour
     public virtual void OnCollected()
     {
         Debug.Log("Collectable collected!");
+        CameraEffect_Shake.Instance.Shake(shakeSettings);
     }
 }

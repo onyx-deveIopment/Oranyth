@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Collectible_Dot : Collectible
 {
-    [Header("DOT ----------")]
+    [Header("OBJECT ----------")]
     [Header("References")]
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private GameObject Border;
@@ -15,14 +15,6 @@ public class Collectible_Dot : Collectible
     [Header("Settings")]
     [SerializeField] private float CorrectTimeAmount = 1;
     [SerializeField] private float RemoveTimeAmount = -5;
-
-    [SerializeField]
-    private CameraEffect_Shake_Settings shakeSettings = new CameraEffect_Shake_Settings()
-    {
-        Duration = 0.2f,
-        Frequency = 0.05f,
-        Intensity = 0.25f
-    };
 
     [Header("Debug")]
     [SerializeField] private Color Color;
@@ -46,8 +38,6 @@ public class Collectible_Dot : Collectible
         base.OnCollected();
 
         if (Color == ColorController.Instance.GetColor()) OnCorrect(); else OnWrong();
-
-        CameraEffect_Shake.Instance.Shake(shakeSettings);
 
         Destroy(gameObject);
     }

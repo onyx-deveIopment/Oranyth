@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class SpawnController : MonoBehaviour
@@ -7,7 +8,7 @@ public class SpawnController : MonoBehaviour
     [Header("References")]
     [SerializeField] private BoxCollider2D SpawnArea;
     [SerializeField] private CircleCollider2D NoSpawnArea;
-    [SerializeField] private GameObject CollectiblePrefab;
+    [SerializeField] private List<SpawnableObject> spawnableObjects;
 
     [Header("Settings")]
     [SerializeField] private int StartCount = 20;
@@ -19,6 +20,13 @@ public class SpawnController : MonoBehaviour
 
     private Camera mainCamera;
 
+    [System.Serializable]
+    public class SpawnableObject
+    {
+        public int chanceOfSpawn = 100;
+        public GameObject prefab;
+    }
+
     private void Awake() => Instance = this;
 
     private void Start()
@@ -29,40 +37,56 @@ public class SpawnController : MonoBehaviour
 
     private void Update()
     {
-        if(!SpawnerEnabled) return;
+        if (!SpawnerEnabled) return;
 
         SpawnTimer += Time.deltaTime;
         if (SpawnTimer >= SpawnRate)
         {
             SpawnTimer = 0;
-            SpawnCollectible();
+            SpawnCollectibles();
         }
     }
 
-    private void SpawnBurst(int _count)
+    private void SpawnBurst(int count)
     {
-        for (int i = 0; i < _count; i++)
+        for (int i = 0; i < count; i++)
         {
-            SpawnCollectible();
+            SpawnCollectibles();
         }
     }
 
-    private void SpawnCollectible()
+    private void SpawnCollectibles()
     {
-        if (SpawnArea == null) return;
+        if (SpawnArea == null || spawnableObjects == null || spawnableObjects.Count == 0) return;
 
-        Vector2 spawnPosition = new Vector2(
-            Random.Range(SpawnArea.bounds.min.x, SpawnArea.bounds.max.x),
-            Random.Range(SpawnArea.bounds.min.y, SpawnArea.bounds.max.y)
-        );
-
-        if (NoSpawnArea.OverlapPoint(spawnPosition))
+        foreach (var spawnable in spawnableObjects)
         {
-            SpawnCollectible();
-            return;
+            if (Random.Range(0, 100) < spawnable.chanceOfSpawn)
+            {
+                Vector2 spawnPosition = GetValidSpawnPosition();
+                if (spawnPosition != Vector2.zero)
+                {
+                    Instantiate(spawnable.prefab, spawnPosition, Quaternion.identity, transform);
+                }
+            }
         }
+    }
 
-        Instantiate(CollectiblePrefab, spawnPosition, Quaternion.identity, transform);
+    private Vector2 GetValidSpawnPosition()
+    {
+        for (int attempt = 0; attempt < 10; attempt++)
+        {
+            Vector2 spawnPosition = new Vector2(
+                Random.Range(SpawnArea.bounds.min.x, SpawnArea.bounds.max.x),
+                Random.Range(SpawnArea.bounds.min.y, SpawnArea.bounds.max.y)
+            );
+
+            if (!NoSpawnArea.OverlapPoint(spawnPosition))
+            {
+                return spawnPosition;
+            }
+        }
+        return Vector2.zero;
     }
 
     public void DisableSpawner() => SpawnerEnabled = false;
@@ -79,20 +103,16 @@ public class SpawnController : MonoBehaviour
     public Vector2 GetCameraSize()
     {
         mainCamera = Camera.main;
-
         if (mainCamera != null)
         {
             Vector3 screenBottomLeft = mainCamera.ScreenToWorldPoint(new Vector3(0, 0, 0));
             Vector3 screenTopRight = mainCamera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 0));
 
-            Vector2 areaSize = new Vector2(
+            return new Vector2(
                 screenTopRight.x - screenBottomLeft.x,
                 screenTopRight.y - screenBottomLeft.y
             );
-
-            return areaSize;
         }
-
         return Vector2.zero;
     }
 }

@@ -22,6 +22,7 @@ public class GameController : MonoBehaviour
     [SerializeField] private float TotalTime = 0;
     [SerializeField] private int CorrectCount = 0;
     [SerializeField] private int WrongCount = 0;
+    [SerializeField] public bool freezeTime = false;
 
     [SerializeField] private float Countdown;
 
@@ -48,7 +49,7 @@ public class GameController : MonoBehaviour
         if (State != GameState.Playing) return;
 
         TotalTime += Time.deltaTime;
-        Countdown -= Time.deltaTime;
+        if(!freezeTime) Countdown -= Time.deltaTime;
 
         if (Countdown <= 0) GameOver();
 

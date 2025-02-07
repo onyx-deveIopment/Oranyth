@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class UIPanelController : MonoBehaviour
 {
@@ -7,6 +8,7 @@ public class UIPanelController : MonoBehaviour
     [Header("References")]
     [SerializeField] private int StartPanelIndex = 0;
     [SerializeField] private GameObject[] Panels;
+    [SerializeField] private GameObject[] PanelSelects;
 
     private void Awake() => Instance = this;
 
@@ -15,6 +17,7 @@ public class UIPanelController : MonoBehaviour
     public void ShowPanel(int index)
     {
         foreach (var panel in Panels) panel.SetActive(false);
+        if(PanelSelects[index] != null) EventSystem.current.SetSelectedGameObject(PanelSelects[index]);
         Panels[index].SetActive(true);
     }
 }

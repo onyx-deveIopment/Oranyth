@@ -1,4 +1,4 @@
-# ONYX-Oranth
+# ONYX-Oranyth
 
 A color game.
 

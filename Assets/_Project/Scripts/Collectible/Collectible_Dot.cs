@@ -35,7 +35,8 @@ public class Collectible_Dot : Collectible
     {
         base.OnCollected();
 
-        if (Color == ColorController.Instance.GetColor()) OnCorrect(); else OnWrong();
+        if(GameController.Instance.RainbowTime > 0) OnCorrect();
+        else if (Color == ColorController.Instance.GetColor()) OnCorrect(); else OnWrong();
 
         Destroy(gameObject);
     }

@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6405876642140374342}
-  - component: {fileID: 824597520654891338}
+  - component: {fileID: 960710778696515982}
   m_Layer: 0
-  m_Name: Collectible - Powerup - Time Freeze
+  m_Name: Collectible - Rainbow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -33,7 +33,7 @@ Transform:
   - {fileID: 3205713534175973863}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &824597520654891338
+--- !u!114 &960710778696515982
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -42,7 +42,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4697666405567495450}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 607f7149478b2bc479aec91c8b796f4b, type: 3}
+  m_Script: {fileID: 11500000, guid: ff9c3742f520c5d468ea16455749bb01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   DefaultColRadius: 0.75
@@ -132,7 +132,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: -1706920167987475274, guid: 177ee615af71dc74c8757558ba70a450, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

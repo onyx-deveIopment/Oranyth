@@ -365,6 +365,7 @@ GameObject:
   m_Component:
   - component: {fileID: 189925165}
   - component: {fileID: 189925166}
+  - component: {fileID: 189925167}
   m_Layer: 0
   m_Name: Graphic
   m_TagString: Untagged
@@ -442,6 +443,20 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &189925167
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 189925164}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6dd5bd4b956f4e945abccc257663d3dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteRenderer: {fileID: 0}
+  Enabled: 0
 --- !u!1 &328290543
 GameObject:
   m_ObjectHideFlags: 0
@@ -677,6 +692,8 @@ MonoBehaviour:
     prefab: {fileID: 7483760908730672677, guid: 669a89e21ca7d7d4fbfef4378440a88f, type: 3}
   - chanceOfSpawn: 5
     prefab: {fileID: 4697666405567495450, guid: 44d89d28fc3c6454dbac9c1f1f7315ec, type: 3}
+  - chanceOfSpawn: 5
+    prefab: {fileID: 4697666405567495450, guid: 10c65f762526d934d93431a1599f2392, type: 3}
   StartCount: 20
   SpawnRate: 1
   SpawnTimer: 1
@@ -4144,6 +4161,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SpriteRenderer: {fileID: 189925166}
   PopupPrefab: {fileID: 8067086436902815166, guid: 360728a100b3de64e93085c74ac70984, type: 3}
+  RainbowEffect: {fileID: 189925167}
   Acceleration: 150
   MaxSpeed: 10
   Damping: 0.9
@@ -4262,6 +4280,7 @@ MonoBehaviour:
   CorrectCount: 0
   WrongCount: 0
   FreezeTime: 0
+  RainbowTime: 0
   Countdown: 0
   State: 0
 --- !u!114 &1820963859

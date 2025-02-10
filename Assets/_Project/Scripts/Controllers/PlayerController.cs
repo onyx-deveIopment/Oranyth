@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     [Header("References")]
     [SerializeField] private SpriteRenderer SpriteRenderer;
     [SerializeField] private GameObject PopupPrefab;
+    [SerializeField] private Effect_Rainbow RainbowEffect;
 
     [Header("Settings")]
     [SerializeField] private float Acceleration = 50;
@@ -53,7 +54,8 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         // Graphics
-        SpriteRenderer.color = ColorController.Instance.GetColor();
+        if(GameController.Instance.RainbowTime > 0)  RainbowEffect.Enable(); else RainbowEffect.Disable();
+        if(GameController.Instance.RainbowTime <= 0) SpriteRenderer.color = ColorController.Instance.GetColor();
     }
 
     private void OnTriggerEnter2D(Collider2D _col) { if (_col.gameObject.CompareTag("collectible")) _col.gameObject.GetComponent<Collectible>().OnCollected(); }

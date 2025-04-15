@@ -29,7 +29,6 @@ public class GameController : MonoBehaviour
 
     [SerializeField] private GameState State = GameState.Playing;
 
-
     private enum GameState
     {
         Playing,

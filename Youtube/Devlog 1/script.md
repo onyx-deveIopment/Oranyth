@@ -4,9 +4,9 @@ Hello and welcome to the first devlog for our new game! The idea behind our game
 
 In this video, I’ll be explaining how the game was made, starting with the Player Controller.
 
-The player controller in this game is simple. The player is a circle that moves around. The first thing I did was install Unity’s Input System package. After that, I created a basic Input Action asset to handle movement with a Vector2 input.
+The player controller in this game is simple. The player is only a circle that moves around. So the first thing I did was install Unity’s Input System package. After that, I created a basic Input Action asset to handle movement with a Vector2 input.
 
-Next, I created a new game object called "Player" and added a circle sprite as a child so we can see the player in the game. I then added the PlayerInput component to the Player object, which helps connect the input actions to the script easily. I also added a 2D circle collider and set it as a trigger, so we can detect when the player touches an object to collect it.
+Next, I created a new game object called "Player" and added a circle sprite as a child so we can see the player in the game. I then added the PlayerInput component to the Player object, which helps connect the input actions to the script easily. I also added a 2D circle collider and set it as a trigger so we can detect when the player touches an object to collect it.
 
 Before moving to the player controller script, I made sure to tag the Player object with the "Player" tag. Then, I created a script called PlayerController and attached it to the Player object. This script is pretty simple. I set up a few variables for acceleration, max speed, and movement damping. I then created a function to get the movement input using the Input Actions.
 
@@ -22,6 +22,6 @@ First is the ColorController script. This handles the player's current color and
 
 Then we have the CollectibleSpawner script. This one spawns collectibles over time for the player to collect.
 
-Finally, there’s the GameController script. This one manages the timer, keeps track of the score, handles pausing and resuming the game, and makes sure everything works smoothly.
+Finally, there’s the GameController script. This one manages the timer, keeps track of the score, and handles pausing and resuming the game.
 
 With these scripts in place, the prototype is now complete! Thanks for watching, and stay tuned for the next devlog where I’ll talk about adding polish and overhauling the UI!

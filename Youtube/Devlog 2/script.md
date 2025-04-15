@@ -12,8 +12,6 @@ To control these effects, I created a new Volume Profile, where I could adjust v
 
 Here’s a comparison of the game with and without post-processing.
 
-Making a Scalable UI
-
 One of my main goals for the UI was to make sure it scaled properly across different screen sizes. To achieve this, I created a Panel and set its Anchor Mode to Stretch so that it resizes dynamically.
 
 Inside this panel, I added a Vertical Layout Group component. This component automatically arranges and spaces out UI elements, so all I had to do was add my UI objects as children, and everything stayed neatly centered and aligned. I repeated this process for each UI page, creating a separate panel for each one.

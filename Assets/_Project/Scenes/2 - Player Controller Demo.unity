@@ -2748,7 +2748,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1101233408
 Transform:
   m_ObjectHideFlags: 0
@@ -4455,14 +4455,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04fa64b8e10842541bcfe56464302c0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Smoothing: 100
-  Damping: 0.99
-  OriginalPosition: {x: 0, y: 0, z: 0}
-  ShakePosition: {x: 0, y: 0, z: 0}
-  Intensity: 0
-  Frequency: 0.1
-  ShakeDuration: 0
-  FrequencyCounter: 0
 --- !u!1 &2076976380
 GameObject:
   m_ObjectHideFlags: 0

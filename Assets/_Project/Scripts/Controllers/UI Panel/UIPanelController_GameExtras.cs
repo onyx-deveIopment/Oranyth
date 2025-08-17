@@ -27,6 +27,11 @@ public class UIPanelController_GameExtras : MonoBehaviour
         Cursor.visible = true;
 
         UIPanelController.Instance.ShowPanel(2);
+
+#if !UNITY_EDITOR
+        if(Application.version.Contains("poki"))
+            PokiUnitySDK.Instance.gameplayStop();
+#endif
     }
 
     private void Resume(){
@@ -36,5 +41,10 @@ public class UIPanelController_GameExtras : MonoBehaviour
         Cursor.visible = false;
 
         UIPanelController.Instance.ShowPanel(0);
+
+#if !UNITY_EDITOR
+        if(Application.version.Contains("poki"))
+            PokiUnitySDK.Instance.gameplayStart();
+#endif
     }
 }

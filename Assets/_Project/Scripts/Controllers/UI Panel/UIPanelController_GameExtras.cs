@@ -16,7 +16,8 @@ public class UIPanelController_GameExtras : MonoBehaviour
     public void PAUSE_Input(InputAction.CallbackContext ctx)
     {
         if(!ctx.performed) return;
-        if(paused) Resume(); else Pause();
+        if(GameController.Instance.IsGameOver) return;
+        if (paused) Resume(); else Pause();
     }
     public void RESUME_ButtonPressed() => Resume();
 

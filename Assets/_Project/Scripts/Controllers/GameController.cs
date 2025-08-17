@@ -29,7 +29,10 @@ public class GameController : MonoBehaviour
 
     [SerializeField] private GameState State = GameState.Playing;
 
-    private enum GameState
+    [SerializeField] public bool IsPlaying => State == GameState.Playing;
+    [SerializeField] public bool IsGameOver => State == GameState.GameOver;
+
+    public enum GameState
     {
         Playing,
         GameOver
@@ -58,7 +61,7 @@ public class GameController : MonoBehaviour
         RainbowTime -= Time.deltaTime;
 
         FreezeTime -= Time.deltaTime;
-        if(FreezeTime <= 0) Countdown -= Time.deltaTime;
+        if (FreezeTime <= 0) Countdown -= Time.deltaTime;
 
         if (Countdown <= 0) GameOver();
 

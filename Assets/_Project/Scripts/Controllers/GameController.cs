@@ -42,12 +42,16 @@ public class GameController : MonoBehaviour
         Countdown = StartTime;
 
         Cursor.visible = false;
+
+#if !UNITY_EDITOR
+        if(Application.version.Contains("poki"))
+            PokiUnitySDK.Instance.gameplayStart();
+#endif
     }
 
     private void Update()
     {
         if (State != GameState.Playing) return;
-
 
         TotalTime += Time.deltaTime;
 
@@ -70,6 +74,23 @@ public class GameController : MonoBehaviour
 
         Countdown = 0;
 
+#if UNITY_EDITOR
+        GameOver_End();
+#else
+        if(Application.version.Contains("poki"))
+        {
+            PokiUnitySDK.Instance.gameplayStop();
+            PokiUnitySDK.Instance.commercialBreakCallBack = GameOver_End;
+            PokiUnitySDK.Instance.commercialBreak();
+        }else{
+            GameOver_End();
+        }
+#endif
+    }
+
+    public void GameOver_End()
+    {
+        Debug.Log("Game Over");
         UpdateUI();
 
         Instantiate(GameOverSFX);
@@ -82,7 +103,7 @@ public class GameController : MonoBehaviour
     private void UpdateUI()
     {
         TotalTimeText.text = (Mathf.Round(TotalTime * 100) / 100).ToString("F2");
-        
+
         CorrectCountText.text = CorrectCount.ToString();
         WrongCountText.text = WrongCount.ToString();
 

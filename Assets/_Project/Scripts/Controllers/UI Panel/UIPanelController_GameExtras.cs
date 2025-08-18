@@ -25,7 +25,10 @@ public class UIPanelController_GameExtras : MonoBehaviour
         Time.timeScale = 0;
         paused = true;
 
-        Cursor.visible = true;
+#if !UNITY_EDITOR
+        if(!Application.version.Contains("andrewarcade"))
+            Cursor.visible = true;
+#endif
 
         UIPanelController.Instance.ShowPanel(2);
 
@@ -39,7 +42,10 @@ public class UIPanelController_GameExtras : MonoBehaviour
         Time.timeScale = 1;
         paused = false;
 
-        Cursor.visible = false;
+#if !UNITY_EDITOR
+        if(!Application.version.Contains("andrewarcade"))
+            Cursor.visible = false;
+#endif
 
         UIPanelController.Instance.ShowPanel(0);
 

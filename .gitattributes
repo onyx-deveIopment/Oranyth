@@ -1,2 +1,4 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+Youtube/Devlog[[:space:]]1/Oranyth[[:space:]]Devlog[[:space:]]1.mp4 filter=lfs diff=lfs merge=lfs -text
+Youtube/Devlog[[:space:]]2/Oranyth[[:space:]]Devlog[[:space:]]2.mp4 filter=lfs diff=lfs merge=lfs -text

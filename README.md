@@ -2,7 +2,7 @@
 
 A color game.
 
-Playtest the game: [https://onyx.andrewcromar.org/oranyth/demo/play](https://onyx.andrewcromar.org/oranyth/demo/play) <br>
+Playtest the game: [https://onyx.andrewcromar.org/oranyth/play](https://onyx.andrewcromar.org/oranyth/play) <br>
 Feedback form: [https://onyx.andrewcromar.org/playtestform](https://onyx.andrewcromar.org/playtestform) (redirects google forms)
 
 ### Images

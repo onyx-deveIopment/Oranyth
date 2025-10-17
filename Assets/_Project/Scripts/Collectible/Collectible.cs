@@ -9,7 +9,7 @@ public class Collectible : MonoBehaviour
 
 
     [SerializeField]
-    private CameraEffect_Shake_Settings shakeSettings = new CameraEffect_Shake_Settings()
+    public CameraEffect_Shake_Settings shakeSettings = new CameraEffect_Shake_Settings()
     {
         Duration = 0.2f,
         Frequency = 0.05f,

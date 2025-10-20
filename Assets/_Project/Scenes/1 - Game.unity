@@ -460,8 +460,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Effect_Rainbow
   EffectMaterial: {fileID: 2100000, guid: 679fbdd3f920b2742b9dc3ae94fb2560, type: 2}
   EffectColor: {r: 1, g: 1, b: 1, a: 1}
-  LowQualityMode_Enabled: 0
-  LowQualityMode_Speed: 0.4
+  LGM_Speed: 0.4
   DefaultMaterial: {fileID: 0}
   DefaultColor: {r: 0, g: 0, b: 0, a: 0}
   SpriteRenderer: {fileID: 0}

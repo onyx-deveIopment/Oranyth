@@ -11,7 +11,7 @@ public class GraphicModeSwitcher : MonoBehaviour
 
     private void Start()
     {
-        HGM_Object.SetActive(!LGM_Enabled);
-        LGM_Object.SetActive(LGM_Enabled);
+        HGM_Object.SetActive(GraphicsMode.Instance.GetGM() != GraphicsMode.GraphicMode.Low);
+        LGM_Object.SetActive(GraphicsMode.Instance.GetGM() == GraphicsMode.GraphicMode.Low);
     }
 }

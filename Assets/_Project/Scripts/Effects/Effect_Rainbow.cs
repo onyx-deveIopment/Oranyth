@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Effect_Rainbow : MonoBehaviour
@@ -7,7 +8,6 @@ public class Effect_Rainbow : MonoBehaviour
     [SerializeField] private Color EffectColor;
 
     [Header("Settings")]
-    [SerializeField] private bool LGM_Enabled;
     [SerializeField] private float LGM_Speed = 1;
 
     [Header("Debug")]
@@ -27,7 +27,7 @@ public class Effect_Rainbow : MonoBehaviour
 
     private void Update()
     {
-        switch (LGM_Enabled)
+        switch (GraphicsMode.Instance.GetGM() == GraphicsMode.GraphicMode.Low)
         {
             case true:EffectLowQuality(); break;
             case false: EffectHighQuality(); break;

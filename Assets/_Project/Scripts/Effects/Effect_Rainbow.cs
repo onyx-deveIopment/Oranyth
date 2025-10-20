@@ -7,8 +7,8 @@ public class Effect_Rainbow : MonoBehaviour
     [SerializeField] private Color EffectColor;
 
     [Header("Settings")]
-    [SerializeField] private bool LowQualityMode_Enabled;
-    [SerializeField] private float LowQualityMode_Speed = 1;
+    [SerializeField] private bool LGM_Enabled;
+    [SerializeField] private float LGM_Speed = 1;
 
     [Header("Debug")]
     [SerializeField] private Material DefaultMaterial;
@@ -27,7 +27,7 @@ public class Effect_Rainbow : MonoBehaviour
 
     private void Update()
     {
-        switch (LowQualityMode_Enabled)
+        switch (LGM_Enabled)
         {
             case true:EffectLowQuality(); break;
             case false: EffectHighQuality(); break;
@@ -40,7 +40,7 @@ public class Effect_Rainbow : MonoBehaviour
         SpriteRenderer.color = DefaultColor;
             
         if (!Enabled) return;
-        SpriteRenderer.color = Color.HSVToRGB(Mathf.PingPong(Time.time * LowQualityMode_Speed, 1), 1, 1);
+        SpriteRenderer.color = Color.HSVToRGB(Mathf.PingPong(Time.time * LGM_Speed, 1), 1, 1);
     }
     
     private void EffectHighQuality()

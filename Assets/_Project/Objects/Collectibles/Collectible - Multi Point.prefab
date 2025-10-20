@@ -247,8 +247,8 @@ MonoBehaviour:
     Intensity: 0.25
   rb: {fileID: 0}
   col: {fileID: 0}
-  SFXPrefab_Powerup: {fileID: 5137702871835633159, guid: be5d5de075adba1468330abedd982cb3, type: 3}
-  CountText: {fileID: 0}
+  SFXPrefab_Collect: {fileID: 5137702871835633159, guid: be5d5de075adba1468330abedd982cb3, type: 3}
+  CountText: {fileID: 828045649469996694}
   Timing: 0.1
   CollectAmount: 5
   Collected: 0

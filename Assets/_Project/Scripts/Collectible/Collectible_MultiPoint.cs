@@ -1,12 +1,12 @@
+using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class Collectible_MultiPoint : Collectible
 {
     [Header("OBJECT ----------")]
     [Header ("References")]
-    [SerializeField] private GameObject SFXPrefab_Powerup;
-    [SerializeField] private Text CountText;
+    [SerializeField] private GameObject SFXPrefab_Collect;
+    [SerializeField] private TMP_Text CountText;
 
     [Header("Setting")]
     [SerializeField] private float Timing = 0.5f;
@@ -27,7 +27,7 @@ public class Collectible_MultiPoint : Collectible
         Timer = Timing;
 
         base.ShowPopup("+1", transform.position);
-        Instantiate(SFXPrefab_Powerup, transform.position, Quaternion.identity);
+        Instantiate(SFXPrefab_Collect, transform.position, Quaternion.identity);
         CameraEffect_Shake.Instance.Shake(base.shakeSettings);
         GameController.Instance.AddTime(1);
 

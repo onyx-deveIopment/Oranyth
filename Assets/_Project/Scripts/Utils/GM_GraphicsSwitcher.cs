@@ -1,13 +1,10 @@
 using UnityEngine;
 
-public class GraphicModeSwitcher : MonoBehaviour
+public class GM_GraphicsSwitcher : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private GameObject HGM_Object;
     [SerializeField] private GameObject LGM_Object;
-
-    [Header("Settings")]
-    [SerializeField] private bool LGM_Enabled;
 
     private void Start()
     {

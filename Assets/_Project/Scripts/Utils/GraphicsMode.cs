@@ -13,6 +13,8 @@ public class GraphicsMode : MonoBehaviour
 
     private void Setup()
     {
+        if (Instance != null && Instance != this) { Destroy(gameObject); return; }
+
         Instance = this;
         DontDestroyOnLoad(gameObject);
         if (PlayerPrefs.HasKey("GraphicMode")) GM = (GraphicMode)PlayerPrefs.GetInt("GraphicMode");

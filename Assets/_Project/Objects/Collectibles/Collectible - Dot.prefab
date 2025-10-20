@@ -52,6 +52,8 @@ SpriteRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -73,6 +75,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -134,19 +137,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DefaultColRadius: 0.75
-  rb: {fileID: 0}
-  col: {fileID: 0}
-  spriteRenderer: {fileID: 6669231150003235492}
-  Border: {fileID: 2870260428990616285}
   PopupPrefab: {fileID: 8067086436902815166, guid: 360728a100b3de64e93085c74ac70984, type: 3}
-  SFXPrefab_Correct: {fileID: 5137702871835633159, guid: be5d5de075adba1468330abedd982cb3, type: 3}
-  SFXPrefab_Wrong: {fileID: 7879973818579139399, guid: 07d4fc0a24e0306469284a5fd53040a3, type: 3}
-  CorrectTimeAmount: 1
-  RemoveTimeAmount: -5
   shakeSettings:
     Duration: 0.2
     Frequency: 0.05
     Intensity: 0.25
+  rb: {fileID: 0}
+  col: {fileID: 0}
+  spriteRenderer: {fileID: 6669231150003235492}
+  Border: {fileID: 2870260428990616285}
+  SFXPrefab_Correct: {fileID: 5137702871835633159, guid: be5d5de075adba1468330abedd982cb3, type: 3}
+  SFXPrefab_Wrong: {fileID: 7879973818579139399, guid: 07d4fc0a24e0306469284a5fd53040a3, type: 3}
+  CorrectTimeAmount: 1
+  RemoveTimeAmount: -5
   Color: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &8239482688419269443
 GameObject:
@@ -200,6 +203,8 @@ SpriteRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -221,6 +226,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0

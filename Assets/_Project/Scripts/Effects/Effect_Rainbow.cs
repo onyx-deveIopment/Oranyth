@@ -2,13 +2,60 @@ using UnityEngine;
 
 public class Effect_Rainbow : MonoBehaviour
 {
+    [Header("References")]
+    [SerializeField] private Material EffectMaterial;
+    [SerializeField] private Color EffectColor;
+
+    [Header("Settings")]
+    [SerializeField] private bool LowQualityMode_Enabled;
+    [SerializeField] private float LowQualityMode_Speed = 1;
+
     [Header("Debug")]
-    [SerializeField] private SpriteRenderer spriteRenderer;
-    [SerializeField] private bool Enabled = true;
+    [SerializeField] private Material DefaultMaterial;
+    [SerializeField] private Color DefaultColor;
+    [SerializeField] private SpriteRenderer SpriteRenderer;
+    [SerializeField] private bool Enabled = false;
 
-    private void Start() => spriteRenderer = GetComponent<SpriteRenderer>();
+    private void Start() => Setup();
 
-    private void Update() { if (Enabled) spriteRenderer.color = Color.HSVToRGB(Mathf.PingPong(Time.time * 0.5f, 1), 1, 1); }
+    private void Setup()
+    {
+        SpriteRenderer = GetComponent<SpriteRenderer>();
+        DefaultMaterial = SpriteRenderer.material;
+        DefaultColor = SpriteRenderer.color;
+    }
+
+    private void Update()
+    {
+        switch (LowQualityMode_Enabled)
+        {
+            case true:EffectLowQuality(); break;
+            case false: EffectHighQuality(); break;
+        }
+    }
+
+    private void EffectLowQuality()
+    {
+        SpriteRenderer.material = DefaultMaterial;
+        SpriteRenderer.color = DefaultColor;
+            
+        if (!Enabled) return;
+        SpriteRenderer.color = Color.HSVToRGB(Mathf.PingPong(Time.time * LowQualityMode_Speed, 1), 1, 1);
+    }
+    
+    private void EffectHighQuality()
+    {
+        if (Enabled)
+        {
+            SpriteRenderer.material = EffectMaterial;
+            SpriteRenderer.color = EffectColor;
+        }
+        else
+        {
+            SpriteRenderer.material = DefaultMaterial;
+            SpriteRenderer.color = DefaultColor;
+        }
+    }
 
     public void Enable() => Enabled = true;
     public void Disable() => Enabled = false;

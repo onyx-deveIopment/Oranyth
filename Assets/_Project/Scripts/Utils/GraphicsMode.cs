@@ -18,7 +18,22 @@ public class GraphicsMode : MonoBehaviour
         if (PlayerPrefs.HasKey("GraphicMode")) GM = (GraphicMode)PlayerPrefs.GetInt("GraphicMode");
     }
 
-    public GraphicMode GetGM() => GM;
-    public void SetGM(GraphicMode _GM) => GM = _GM;
     public void SaveGM() => PlayerPrefs.SetInt("GraphicMode", (int)GM);
+
+    public GraphicMode GetGM() => GM;
+    public void SetGM(GraphicMode _GM)
+    {
+        GM = _GM;
+        SaveGM();
+    }
+
+    public void ToggleGM()
+    {
+        switch (GM)
+        {
+            case GraphicMode.High: GM = GraphicMode.Low; break;
+            case GraphicMode.Low: GM = GraphicMode.High; break;
+        }
+        SaveGM();
+    }
 }

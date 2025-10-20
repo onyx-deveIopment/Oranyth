@@ -41,7 +41,6 @@ public class Collectible : MonoBehaviour
 
     public virtual void OnCollected()
     {
-        Debug.Log("Collectable collected!");
         CameraEffect_Shake.Instance.Shake(shakeSettings);
     }
 

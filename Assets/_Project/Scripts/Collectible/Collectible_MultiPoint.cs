@@ -1,10 +1,12 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Collectible_MultiPoint : Collectible
 {
     [Header("OBJECT ----------")]
     [Header ("References")]
     [SerializeField] private GameObject SFXPrefab_Powerup;
+    [SerializeField] private Text CountText;
 
     [Header("Setting")]
     [SerializeField] private float Timing = 0.5f;
@@ -16,6 +18,8 @@ public class Collectible_MultiPoint : Collectible
 
     public void Update()
     {
+        CountText.text = "+" + CollectAmount.ToString();
+
         if (!Collected) return;
         Timer -= Time.deltaTime;
         if (Timer > 0) return;

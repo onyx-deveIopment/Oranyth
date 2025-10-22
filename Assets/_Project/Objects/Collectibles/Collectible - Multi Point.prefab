@@ -601,6 +601,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8701343466313873592}
   - component: {fileID: 6669231150003235492}
+  - component: {fileID: 8732924036392174444}
   m_Layer: 0
   m_Name: Graphic
   m_TagString: Untagged
@@ -681,3 +682,17 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &8732924036392174444
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8239482688419269443}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b12dd3fd52ea604d95d03f332f316c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RandomSeed
+  spriteRenderer: {fileID: 6669231150003235492}
+  Seed: 0

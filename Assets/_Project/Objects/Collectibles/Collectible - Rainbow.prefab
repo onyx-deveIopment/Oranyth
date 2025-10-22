@@ -105,7 +105,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5714903265772389558
 Transform:
   m_ObjectHideFlags: 0
@@ -401,7 +401,7 @@ GameObject:
   - component: {fileID: 7350458938931268717}
   - component: {fileID: 4031261560820137801}
   m_Layer: 0
-  m_Name: Graphics Modes
+  m_Name: GM Graphics Switcher
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -438,4 +438,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   HGM_Object: {fileID: 3403840391950261023}
   LGM_Object: {fileID: 3373550607215331520}
-  LGM_Enabled: 0

@@ -698,7 +698,7 @@ MonoBehaviour:
   spawnableObjects:
   - chanceOfSpawn: 100
     prefab: {fileID: 7483760908730672677, guid: 669a89e21ca7d7d4fbfef4378440a88f, type: 3}
-  - chanceOfSpawn: 5
+  - chanceOfSpawn: 50
     prefab: {fileID: 4697666405567495450, guid: 44d89d28fc3c6454dbac9c1f1f7315ec, type: 3}
   - chanceOfSpawn: 5
     prefab: {fileID: 4697666405567495450, guid: 10c65f762526d934d93431a1599f2392, type: 3}

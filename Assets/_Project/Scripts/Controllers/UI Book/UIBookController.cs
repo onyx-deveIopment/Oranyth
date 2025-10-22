@@ -7,7 +7,7 @@ public class UIBookController : MonoBehaviour
     [SerializeField] private Transform PagesContainer;
 
     [Header("Debug")]
-    [SerializeField] private float CurrentPage;
+    [SerializeField] private float CurrentPage = 0;
     [SerializeField] private float MaxPage;
 
     private void Start()
@@ -15,6 +15,8 @@ public class UIBookController : MonoBehaviour
         MaxPage = PagesContainer.childCount - 1;
 
         SetPageNumbers();
+
+        ShowPage(CurrentPage);
     }
 
     private void SetPageNumbers() { foreach (Transform page in PagesContainer) page.Find("Page Number").gameObject.GetComponent<TMP_Text>().text = (page.GetSiblingIndex() + 1).ToString() + "/" + (MaxPage + 1).ToString(); }

@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 public class UIBookController : MonoBehaviour
@@ -9,7 +10,14 @@ public class UIBookController : MonoBehaviour
     [SerializeField] private float CurrentPage;
     [SerializeField] private float MaxPage;
 
-    private void Start() => MaxPage = PagesContainer.childCount - 1;
+    private void Start()
+    {
+        MaxPage = PagesContainer.childCount - 1;
+
+        SetPageNumbers();
+    }
+
+    private void SetPageNumbers() { foreach (Transform page in PagesContainer) page.Find("Page Number").gameObject.GetComponent<TMP_Text>().text = (page.GetSiblingIndex() + 1).ToString() + "/" + (MaxPage + 1).ToString(); }
 
     private void ShowPage(float _PageNumber)
     {

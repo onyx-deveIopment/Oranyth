@@ -26,10 +26,7 @@ public class Collectible_Dot : Collectible
         spriteRenderer.color = Color;
     }
 
-    private void Update()
-    {
-        Border.SetActive(Color == ColorController.Instance.GetColor());
-    }
+    private void Update() => Border.SetActive(Color == ColorController.Instance.GetColor());
 
     public override void OnCollected()
     {

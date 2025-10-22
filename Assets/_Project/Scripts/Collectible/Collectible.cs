@@ -3,10 +3,11 @@ using UnityEngine;
 public class Collectible : MonoBehaviour
 {
     [Header("COLLECTIBLE ----------")]
+    [SerializeField] private bool TESTOBJECT = false;
+
     [Header("Settings")]
     [SerializeField] private float DefaultColRadius = 0.75f;
     [SerializeField] private GameObject PopupPrefab;
-
 
     [SerializeField]
     public CameraEffect_Shake_Settings shakeSettings = new CameraEffect_Shake_Settings()
@@ -20,11 +21,9 @@ public class Collectible : MonoBehaviour
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private CircleCollider2D col;
 
+    public virtual void Awake() => this.enabled = !TESTOBJECT;
 
-    public virtual void Start()
-    {
-        SetupObject();
-    }
+    public virtual void Start() => SetupObject();
 
     public virtual void SetupObject()
     {
@@ -39,10 +38,7 @@ public class Collectible : MonoBehaviour
         col.radius = DefaultColRadius;
     }
 
-    public virtual void OnCollected()
-    {
-        CameraEffect_Shake.Instance.Shake(shakeSettings);
-    }
+    public virtual void OnCollected() => CameraEffect_Shake.Instance.Shake(shakeSettings);
 
     public void ShowPopup(string _text, Vector3 _position)
     {

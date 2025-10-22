@@ -6,7 +6,7 @@ public class GM_GraphicsSwitcher : MonoBehaviour
     [SerializeField] private GameObject HGM_Object;
     [SerializeField] private GameObject LGM_Object;
 
-    private void Start()
+    private void Update()
     {
         HGM_Object.SetActive(GraphicsMode.Instance.GetGM() != GraphicsMode.GraphicMode.Low);
         LGM_Object.SetActive(GraphicsMode.Instance.GetGM() == GraphicsMode.GraphicMode.Low);

@@ -23,7 +23,7 @@ public class UIBookController : MonoBehaviour
 
     private void ShowPage(float _PageNumber)
     {
-        foreach (Transform page in PagesContainer) page.gameObject.SetActive(false);
+        foreach (Transform _page in PagesContainer) _page.gameObject.SetActive(false);
         PagesContainer.GetChild((int)_PageNumber).gameObject.SetActive(true);
     }
 

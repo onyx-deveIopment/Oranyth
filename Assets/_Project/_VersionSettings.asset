@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be3bfb0f93cd9d04d8fb780767179cd0, type: 3}
   m_Name: _VersionSettings
   m_EditorClassIdentifier: 
-  buildNumber: 2.5
+  buildNumber: 2.6
   distribution: 0

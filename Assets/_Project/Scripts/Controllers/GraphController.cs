@@ -1,5 +1,9 @@
 using UnityEngine;
 using UnityEngine.UI;
+using System;
+using System.IO;
+using System.IO.Compression;
+using System.Text;
 
 public class GraphController : MonoBehaviour
 {
@@ -34,40 +38,46 @@ public class GraphController : MonoBehaviour
 
     private void Awake() => Instance = this;
 
-    public void GraphValues(float[] values)
+    #region Graph Rendering
+
+    public Texture2D GraphValues(float[] values, bool forExport = false, int exportWidth = 800, int exportHeight = 400)
     {
-        if (GraphImage == null || values == null || values.Length == 0)
+        if (values == null || values.Length == 0)
         {
-            Debug.LogWarning("GraphController: Missing GraphImage or values array.");
-            return;
+            Debug.LogWarning("GraphController: Missing values array.");
+            return null;
         }
 
-        // Get image rect and apply scale
-        RectTransform rect = GraphImage.rectTransform;
-        int fullWidth = Mathf.RoundToInt(rect.rect.width);
-        int fullHeight = Mathf.RoundToInt(rect.rect.height);
-        int width = Mathf.Max(1, Mathf.RoundToInt(fullWidth * ResolutionScale));
-        int height = Mathf.Max(1, Mathf.RoundToInt(fullHeight * ResolutionScale));
-
-        if (width <= 0 || height <= 0)
+        int width, height;
+        if (forExport)
         {
-            Debug.LogWarning("GraphController: Invalid scaled GraphImage size.");
-            return;
+            width = Mathf.Max(1, exportWidth);
+            height = Mathf.Max(1, exportHeight);
+        }
+        else
+        {
+            if (GraphImage == null)
+            {
+                Debug.LogWarning("GraphController: GraphImage reference missing.");
+                return null;
+            }
+            RectTransform rect = GraphImage.rectTransform;
+            int fullWidth = Mathf.RoundToInt(rect.rect.width);
+            int fullHeight = Mathf.RoundToInt(rect.rect.height);
+            width = Mathf.Max(1, Mathf.RoundToInt(fullWidth * ResolutionScale));
+            height = Mathf.Max(1, Mathf.RoundToInt(fullHeight * ResolutionScale));
         }
 
-        // Create texture + background buffer
         Texture2D texture = new Texture2D(width, height, TextureFormat.RGBA32, false);
         texture.filterMode = FilterMode.Bilinear;
         Color32[] pixels = new Color32[width * height];
         for (int i = 0; i < pixels.Length; i++)
             pixels[i] = BackgroundColor;
 
-        // Scale values
         float minValue = Mathf.Min(values);
         float maxValue = Mathf.Max(values);
         float range = Mathf.Max(0.0001f, maxValue - minValue);
 
-        // Determine step size based on settings
         int autoStep = AutoDownsample ? Mathf.Max(1, values.Length / width) : 1;
         int manualStep = Mathf.Max(1, Mathf.RoundToInt(1f / Mathf.Clamp(DataFraction, 0.001f, 1f)));
         int step = Mathf.Max(autoStep, manualStep);
@@ -75,7 +85,6 @@ public class GraphController : MonoBehaviour
         int prevX = 0;
         int prevY = Mathf.RoundToInt(((values[0] - minValue) / range) * (height - 1));
 
-        // Core draw loop (continuous)
         for (int i = step; i < values.Length; i += step)
         {
             int x = Mathf.RoundToInt((float)i / (values.Length - 1) * (width - 1));
@@ -83,7 +92,6 @@ public class GraphController : MonoBehaviour
 
             if (PreserveExtremes)
             {
-                // Find local min/max in skipped range
                 float localMin = float.MaxValue;
                 float localMax = float.MinValue;
                 int end = Mathf.Min(i + step, values.Length);
@@ -95,15 +103,11 @@ public class GraphController : MonoBehaviour
                 int minY = Mathf.RoundToInt(((localMin - minValue) / range) * (height - 1));
                 int maxY = Mathf.RoundToInt(((localMax - minValue) / range) * (height - 1));
 
-                // Draw vertical spike range (for extremes)
                 DrawBorderedLineBuffer(pixels, width, height, x, minY, x, maxY, GraphColor, BorderColor, LineThickness, BorderThickness);
-
-                // Ensure continuous connection from previous point
                 DrawBorderedLineBuffer(pixels, width, height, prevX, prevY, x, y, GraphColor, BorderColor, LineThickness, BorderThickness);
             }
             else
             {
-                // Continuous connection
                 DrawBorderedLineBuffer(pixels, width, height, prevX, prevY, x, y, GraphColor, BorderColor, LineThickness, BorderThickness);
             }
 
@@ -111,15 +115,17 @@ public class GraphController : MonoBehaviour
             prevY = y;
         }
 
-        // Apply final pixels in one batch
         texture.SetPixels32(pixels);
         texture.Apply(false);
 
-        // Display
-        GraphImage.sprite = Sprite.Create(texture, new Rect(0, 0, width, height), new Vector2(0.5f, 0.5f));
+        if (!forExport && GraphImage != null)
+        {
+            GraphImage.sprite = Sprite.Create(texture, new Rect(0, 0, width, height), new Vector2(0.5f, 0.5f));
+        }
+
+        return texture;
     }
 
-    // Faster version using a pixel buffer (no GetPixel)
     private void DrawBorderedLineBuffer(Color32[] buffer, int width, int height,
         int x0, int y0, int x1, int y1, Color innerColor, Color borderColor, int thickness, int border)
     {
@@ -178,4 +184,65 @@ public class GraphController : MonoBehaviour
             }
         }
     }
+
+    #endregion
+
+    #region Shareable URL / Compressed Graph Data
+
+    /// <summary>
+    /// Returns a compressed Base64 string of the graph coordinates.
+    /// Each point: x,y as ushort (2 bytes each) relative to export resolution.
+    /// </summary>
+    public string GetCompressedGraphData(float[] values, int exportWidth = 800, int exportHeight = 400)
+    {
+        if (values == null || values.Length == 0) return null;
+
+        float minValue = Mathf.Min(values);
+        float maxValue = Mathf.Max(values);
+        float range = Mathf.Max(0.0001f, maxValue - minValue);
+
+        // Downsample to 1-2 points per pixel
+        int step = Mathf.Max(1, values.Length / exportWidth);
+
+        using (MemoryStream ms = new MemoryStream())
+        {
+            using (BinaryWriter bw = new BinaryWriter(ms))
+            {
+                for (int i = 0; i < values.Length; i += step)
+                {
+                    ushort x = (ushort)Mathf.RoundToInt((float)i / (values.Length - 1) * (exportWidth - 1));
+                    ushort y = (ushort)Mathf.RoundToInt((values[i] - minValue) / range * (exportHeight - 1));
+                    bw.Write(x);
+                    bw.Write(y);
+                }
+            }
+
+            // Compress with GZip
+            byte[] rawBytes = ms.ToArray();
+            using (MemoryStream compressedMs = new MemoryStream())
+            {
+                using (GZipStream gzip = new GZipStream(compressedMs, CompressionMode.Compress))
+                {
+                    gzip.Write(rawBytes, 0, rawBytes.Length);
+                }
+                byte[] compressed = compressedMs.ToArray();
+                return Convert.ToBase64String(compressed);
+            }
+        }
+    }
+
+    /// <summary>
+    /// Generates a shareable URL with compressed data and copies it to clipboard.
+    /// </summary>
+    public string GetGraphShareURL(float[] values, int exportWidth = 800, int exportHeight = 400)
+    {
+        string compressedData = GetCompressedGraphData(values, exportWidth, exportHeight);
+        if (string.IsNullOrEmpty(compressedData)) return null;
+
+        string url = $"https://onyx.andrewcromar.org/oranythgraph.php?data={Uri.EscapeDataString(compressedData)}";
+        GUIUtility.systemCopyBuffer = url;
+        return url;
+    }
+
+    #endregion
 }

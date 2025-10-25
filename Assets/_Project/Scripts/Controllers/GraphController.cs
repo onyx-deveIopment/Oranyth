@@ -8,71 +8,78 @@ public class GraphController : MonoBehaviour
     [Header("References")]
     [SerializeField] private Image GraphImage;
 
-    [Header("Settings")]
-    [SerializeField] private float[] GraphValues = { 10, 20, 30, 40, 50, 50, 50, 50, 50, 60, 70, 60, 60, 75, 80, 90, 100, 90, 80, 70, 60, 50, 40, 30, 20, 10 };
-    [SerializeField] private float XScale = 500;
-    [SerializeField] private float YScale = 300;
-
-    [Header("Debug")]
-    [SerializeField] private Sprite GraphSprite;
-
-    private Texture2D graphTexture;
-    private const int textureWidth = 512;
-    private const int textureHeight = 300;
-
     private void Awake() => Instance = this;
-
-    private void Start()
-    {
-        // Create a new texture
-        graphTexture = new Texture2D(textureWidth, textureHeight, TextureFormat.RGBA32, false);
-        // Fill with white background
-        Color[] fillColor = new Color[textureWidth * textureHeight];
-        for (int i = 0; i < fillColor.Length; i++) fillColor[i] = Color.white;
-        graphTexture.SetPixels(fillColor);
-        graphTexture.Apply();
-
-        // Assign to GraphImage
-        GraphImage.sprite = Sprite.Create(graphTexture, new Rect(0, 0, textureWidth, textureHeight), new Vector2(0.5f, 0.5f));
-        GraphSprite = GraphImage.sprite;
-    }
 
     public void GraphValues(float[] values)
     {
-        GraphValues = values;
-        Graph();
-    }
-
-    private void Graph()
-    {
-        float maxValue = Mathf.Max(GraphValues);
-
-        float[] remapedValues = new float[GraphValues.Length];
-
-        for (int i = 0; i < GraphValues.Length; i++)
+        if (GraphImage == null || values == null || values.Length == 0)
         {
-            remapedValues[i] = GraphValues[i] / maxValue * YScale;
+            Debug.LogWarning("GraphController: Missing GraphImage or values array.");
+            return;
         }
 
-        float xStep = XScale / (GraphValues.Length - 1);
-        float xOffset = -XScale / 2f;
-        float yOffset = -YScale / 2f;
+        // Get the image rect dimensions
+        RectTransform rect = GraphImage.rectTransform;
+        int width = Mathf.RoundToInt(rect.rect.width);
+        int height = Mathf.RoundToInt(rect.rect.height);
 
-        for (int i = 0; i < remapedValues.Length - 1; i++)
+        // Create a new texture the same size as the image
+        Texture2D texture = new Texture2D(width, height, TextureFormat.RGBA32, false);
+        texture.filterMode = FilterMode.Point;
+
+        // Fill background with transparent pixels
+        Color32[] clearPixels = new Color32[width * height];
+        for (int i = 0; i < clearPixels.Length; i++)
+            clearPixels[i] = new Color32(0, 0, 0, 0);
+        texture.SetPixels32(clearPixels);
+
+        // Find min/max for scaling
+        float minValue = Mathf.Min(values);
+        float maxValue = Mathf.Max(values);
+        float range = Mathf.Max(0.0001f, maxValue - minValue); // Avoid divide-by-zero
+
+        // Scale values to fit height
+        int prevX = 0;
+        int prevY = Mathf.RoundToInt(((values[0] - minValue) / range) * (height - 1));
+
+        for (int i = 1; i < values.Length; i++)
         {
-            Vector2 startPos = new Vector2(i * xStep + xOffset, remapedValues[i] + yOffset);
-            Vector2 endPos = new Vector2((i + 1) * xStep + xOffset, remapedValues[i + 1] + yOffset);
+            float t = (float)i / (values.Length - 1);
+            int x = Mathf.RoundToInt(t * (width - 1));
+            int y = Mathf.RoundToInt(((values[i] - minValue) / range) * (height - 1));
 
-            Debug.DrawLine(startPos, endPos, Color.red, 100f);
+            DrawLine(texture, prevX, prevY, x, y, Color.black);
+
+            prevX = x;
+            prevY = y;
         }
+
+        texture.Apply();
+
+        // Create sprite and assign it to the Image
+        Sprite graphSprite = Sprite.Create(texture, new Rect(0, 0, width, height), new Vector2(0.5f, 0.5f));
+        GraphImage.sprite = graphSprite;
     }
 
-    private void SetPixel(float x, float y)
+    // Simple Bresenham-style line drawer
+    private void DrawLine(Texture2D tex, int x0, int y0, int x1, int y1, Color color)
     {
-        if (graphTexture == null) return;
-        int px = Mathf.Clamp(Mathf.RoundToInt(x), 0, textureWidth - 1);
-        int py = Mathf.Clamp(Mathf.RoundToInt(y), 0, textureHeight - 1);
-        graphTexture.SetPixel(px, py, Color.black);
-        graphTexture.Apply();
+        int dx = Mathf.Abs(x1 - x0);
+        int dy = Mathf.Abs(y1 - y0);
+        int sx = x0 < x1 ? 1 : -1;
+        int sy = y0 < y1 ? 1 : -1;
+        int err = dx - dy;
+
+        while (true)
+        {
+            if (x0 >= 0 && x0 < tex.width && y0 >= 0 && y0 < tex.height)
+                tex.SetPixel(x0, y0, color);
+
+            if (x0 == x1 && y0 == y1) break;
+
+            int e2 = 2 * err;
+            if (e2 > -dy) { err -= dy; x0 += sx; }
+            if (e2 < dx) { err += dx; y0 += sy; }
+        }
     }
 }

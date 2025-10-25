@@ -25,7 +25,7 @@ public class GameController : MonoBehaviour
     [SerializeField] public float FreezeTime = 0;
     [SerializeField] public float RainbowTime = 0;
 
-    [SerializeField] private float Countdown;
+    [SerializeField] public float Countdown;
 
     [SerializeField] private GameState State = GameState.Playing;
 
@@ -93,7 +93,6 @@ public class GameController : MonoBehaviour
 
     public void GameOver_End()
     {
-        Debug.Log("Game Over");
         UpdateUI();
 
         Instantiate(GameOverSFX);

@@ -75,7 +75,7 @@ public class GraphController : MonoBehaviour
         int prevX = 0;
         int prevY = Mathf.RoundToInt(((values[0] - minValue) / range) * (height - 1));
 
-        // Core draw loop
+        // Core draw loop (continuous)
         for (int i = step; i < values.Length; i += step)
         {
             int x = Mathf.RoundToInt((float)i / (values.Length - 1) * (width - 1));
@@ -83,7 +83,7 @@ public class GraphController : MonoBehaviour
 
             if (PreserveExtremes)
             {
-                // Find min/max in skipped range to preserve spikes
+                // Find local min/max in skipped range
                 float localMin = float.MaxValue;
                 float localMax = float.MinValue;
                 int end = Mathf.Min(i + step, values.Length);
@@ -94,10 +94,16 @@ public class GraphController : MonoBehaviour
                 }
                 int minY = Mathf.RoundToInt(((localMin - minValue) / range) * (height - 1));
                 int maxY = Mathf.RoundToInt(((localMax - minValue) / range) * (height - 1));
+
+                // Draw vertical spike range (for extremes)
                 DrawBorderedLineBuffer(pixels, width, height, x, minY, x, maxY, GraphColor, BorderColor, LineThickness, BorderThickness);
+
+                // Ensure continuous connection from previous point
+                DrawBorderedLineBuffer(pixels, width, height, prevX, prevY, x, y, GraphColor, BorderColor, LineThickness, BorderThickness);
             }
             else
             {
+                // Continuous connection
                 DrawBorderedLineBuffer(pixels, width, height, prevX, prevY, x, y, GraphColor, BorderColor, LineThickness, BorderThickness);
             }
 

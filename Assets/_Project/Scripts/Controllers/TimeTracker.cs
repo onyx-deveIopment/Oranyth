@@ -21,7 +21,6 @@ public class TimeTracker : MonoBehaviour
         if (GameController.Instance.IsGameOver)
         {
             GraphController.Instance.GraphValues(TimeValues.ToArray());
-            UnityEngine.Debug.Log("Graph URL: \"" + GraphController.Instance.GetGraphShareURL(TimeValues.ToArray()) + "\".");
             enabled = false;
         }
     }

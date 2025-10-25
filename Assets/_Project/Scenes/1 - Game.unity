@@ -3265,9 +3265,9 @@ MonoBehaviour:
   BackgroundColor: {r: 0, g: 0, b: 0, a: 0}
   LineThickness: 2
   BorderThickness: 4
-  ResolutionScale: 0.9
+  ResolutionScale: 1
   AutoDownsample: 1
-  DataFraction: 0.75
+  DataFraction: 1
   PreserveExtremes: 1
 --- !u!114 &1473750290
 MonoBehaviour:
